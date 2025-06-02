@@ -23,7 +23,7 @@ public class ActivityMain extends AppCompatActivity {
             bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull android.view.MenuItem item) {
-                    int itemId = item.getItemId();''
+                    int itemId = item.getItemId();
                     if (itemId == R.id.nav_dashboard) {
                         // Aqui você pode apenas recarregar ou fazer algo
                         return true;
