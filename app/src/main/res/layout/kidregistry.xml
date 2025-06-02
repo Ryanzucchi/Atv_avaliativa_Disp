@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="8dp">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrar criança"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="25dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:layout_marginLeft="32dp"
+        android:textColor="#565E6C"
+        android:textStyle="bold"
+        />
+
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="12dp"
+        android:background="#F5F5F5"
+        android:drawableStart="@drawable/baseline_tag_faces_24"
+        android:drawablePadding="10dp"
+        android:hint="Nome da criança"
+        android:paddingLeft="15dp"
+        android:textColorHint="#999999" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="data de nascimento"
+        android:layout_marginLeft="32dp"
+        android:textColor="#565E6C"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/input_psnome"
+        android:layout_width="330dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="32dp"
+        android:background="#F5F5F5"
+        android:drawableStart="@drawable/baseline_tag_faces_24"
+        android:drawablePadding="10dp"
+        android:hint="dd/mm/aaaa"
+        android:inputType="date"
+        android:focusable="true"
+        android:clickable="true"
+        android:paddingLeft="15dp"
+        android:textColorHint="#999999" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gênero"
+        android:layout_marginLeft="32dp"
+        android:textColor="#565E6C"
+        android:textStyle="bold"
+        />
+
+    <Spinner
+        android:id="@+id/input_snome"
+        android:layout_width="330dp"
+        android:entries="@array/sexo_array"
+        android:layout_height="54dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="12dp"
+        android:background="#F5F5F5"
+        android:drawablePadding="10dp"
+        android:hint="sexo"
+        android:paddingLeft="15dp"
+        android:textColorHint="#999999" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="informações"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="32dp"
+        android:textColor="#565E6C"
+        android:textStyle="bold"
+        android:textSize="23dp"
+        />
+
+    <EditText
+        android:id="@+id/input_telefone"
+        android:layout_width="330dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="32dp"
+        android:background="#F5F5F5"
+        android:drawablePadding="10dp"
+        android:hint="descreva condições medicas"
+        android:paddingLeft="15dp"
+        android:textColorHint="#999999" />
+
+    <Button
+        android:id="@+id/escolha"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="32dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginTop="12dp"
+        android:text="escolher creche"/>
+
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginLeft="213dp"
+        android:layout_marginTop="-60dp"
+        android:text="seleção automatica" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Documentação"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="32dp"
+        android:textColor="#565E6C"
+        android:textStyle="bold"
+        android:textSize="23dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/colorPrimary"
+        android:text="Envie, comprovante de endereço, certidão de nascimento, CPF, carteira de vacinação da criança" />
+
+    <TextView
+        android:id="@+id/fileNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nenhum arquivo selecionado"
+        android:layout_marginLeft="32dp"
+        android:padding="8dp"
+        android:textColor="#000000" />
+
+
+    <Button
+        android:id="@+id/btn_uparq"
+        android:layout_width="330dp"
+        android:layout_height="54dp"
+        android:text="upload de arquivos"
+        android:textColor="#FFFFFF"
+        android:layout_marginLeft="32dp"
+        android:backgroundTint="#52AE77"/>
+    <Button
+        android:id="@+id/btn_enviar"
+        android:layout_width="330dp"
+        android:layout_height="54dp"
+        android:text="Enviar"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        android:backgroundTint="#52AE77"/>
+
+
+</LinearLayout>

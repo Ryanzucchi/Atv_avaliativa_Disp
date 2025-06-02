@@ -1,0 +1,6 @@
+<resources>
+    <!-- Cor principal da sua aplicação -->
+    <color name="colorPrimary">#4CAF50</color> <!-- Verde, por exemplo -->
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorAccent">#FFFFFF</color>
+</resources>

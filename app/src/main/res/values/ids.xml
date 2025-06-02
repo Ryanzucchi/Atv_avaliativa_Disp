@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btn_enviar" type="id" />
+    <item name="btn_uparq" type="id" />
+    <item name="escolha" type="id" />
+</resources>

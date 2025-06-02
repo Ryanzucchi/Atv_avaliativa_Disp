@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string-array name="sexo_array">
+        <item>Selecione</item>
+        <item>Feminino</item>
+        <item>Masculino</item>
+    </string-array>
+</resources>
