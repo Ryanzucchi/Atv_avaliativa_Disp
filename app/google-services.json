@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "387238566876",
+    "project_id": "nidus-b364d",
+    "storage_bucket": "nidus-b364d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387238566876:android:35537c7584a894da3d4d19",
+        "android_client_info": {
+          "package_name": "br.com.unemat.ryan.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOo1oMN9KO7Ln2Qasr0yTNVBByEyrjpxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
