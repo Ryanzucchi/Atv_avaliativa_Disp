@@ -1,68 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Seu conteúdo principal acima -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_above="@id/dashbottom_navigation"
+        android:fillViewport="true">
 
-        <!-- Exemplo de título -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="72dp"
-            android:text="Seja bem vindo"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Exemplo de campo de busca -->
-        <EditText
-            android:id="@+id/input_pass"
-            android:layout_width="378dp"
-            android:layout_marginBottom="32dp"
-            android:layout_height="54dp"
-            android:layout_marginTop="20dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@android:drawable/ic_menu_search"
-            android:drawablePadding="10dp"
-            android:hint="Procurar"
-            android:paddingLeft="15dp"
-            android:textColorHint="#999999" />
-
-        <!-- Botões -->
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Status de solicitação"
-            android:layout_marginTop="16dp"
-            android:textColor="#000000"
-            android:backgroundTint="#D9D9D9" />
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <Button
-            android:id="@+id/Idteste"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Atualizar documentos"
-            android:layout_marginTop="8dp"
-            android:textColor="#000000"
-            android:backgroundTint="#D9D9D9"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
+                android:text="Seja bem vindo"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="32dp" />
+
+            <EditText
+                android:id="@+id/input_pass"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="#F5F5F5"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:drawablePadding="10dp"
+                android:hint="Procurar"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColorHint="#999999"
+                android:inputType="text"
+                android:layout_marginBottom="32dp" />
+
+            <Button
+                android:id="@+id/btn_status_solicitacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status de solicitação"
+                android:layout_marginTop="16dp"
+                android:textColor="#000000"
+                android:backgroundTint="#D9D9D9"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/Idteste"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Atualizar documentos"
+                android:layout_marginTop="8dp"
+                android:textColor="#000000"
+                android:backgroundTint="#D9D9D9"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
 
-    </LinearLayout>
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/dashbottom_navigation" />
+        </LinearLayout>
+    </ScrollView>
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/dashbottom_navigation"
         android:layout_width="match_parent"

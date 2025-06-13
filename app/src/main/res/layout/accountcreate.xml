@@ -1,130 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="8dp">
+    android:fillViewport="true">
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crie sua conta"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        android:textSize="32dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="25dp"/>
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crie sua conta"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="32dp"/>
 
-    <EditText
-        android:id="@+id/input_email"
-        android:layout_width="330dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="32dp"
-        android:background="#F5F5F5"
-        android:drawableStart="@drawable/baseline_tag_faces_24"
-        android:drawablePadding="10dp"
-        android:hint="Insira CPF ou email"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#F5F5F5"
+            android:drawableStart="@drawable/ic_email_or_cpf"
+            android:drawablePadding="10dp"
+            android:hint="Insira CPF ou email"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColorHint="#999999"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/input_psnome"
-        android:layout_width="330dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="32dp"
-        android:background="#F5F5F5"
-        android:drawableStart="@drawable/baseline_tag_faces_24"
-        android:drawablePadding="10dp"
-        android:hint="primeiro nome"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
+        <EditText
+            android:id="@+id/input_psnome"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#F5F5F5"
+            android:drawableStart="@drawable/ic_person_24"
+            android:drawablePadding="10dp"
+            android:hint="primeiro nome"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColorHint="#999999"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/input_snome"
-        android:layout_width="330dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="32dp"
-        android:background="#F5F5F5"
-        android:drawableStart="@drawable/baseline_tag_faces_24"
-        android:drawablePadding="10dp"
-        android:hint="sobrenome"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
+        <EditText
+            android:id="@+id/input_snome"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#F5F5F5"
+            android:drawableStart="@drawable/ic_person_24"
+            android:drawablePadding="10dp"
+            android:hint="sobrenome"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColorHint="#999999"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/input_telefone"
-        android:layout_width="330dp"
-        android:inputType="phone"
-        android:layout_height="54dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="32dp"
-        android:background="#F5F5F5"
-        android:drawableStart="@drawable/baseline_tag_faces_24"
-        android:drawablePadding="10dp"
-        android:hint="telefone"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
+        <EditText
+            android:id="@+id/input_telefone"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#F5F5F5"
+            android:drawableStart="@drawable/ic_phone_24"
+            android:drawablePadding="10dp"
+            android:hint="telefone"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColorHint="#999999"
+            android:inputType="phone"
+            android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/input_pass"
-        android:layout_width="330dp"
-        android:layout_height="54dp"
-        android:inputType="textPassword"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="32dp"
-        android:background="#F5F5F5"
-        android:drawableStart="@drawable/baseline_tag_faces_24"
-        android:drawablePadding="10dp"
-        android:hint="Insira a senha"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
+        <EditText
+            android:id="@+id/input_pass"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#F5F5F5"
+            android:drawableStart="@drawable/ic_lock_24"
+            android:drawablePadding="10dp"
+            android:hint="Insira a senha"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColorHint="#999999"
+            android:inputType="textPassword"
+            android:layout_marginBottom="24dp"/>
 
-    <CheckBox
-        android:id="@+id/checkbox_terms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Eu aceito os termos e condições"
-        android:textColor="#000000"
-        android:buttonTint="#52AE77"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="-40dp"
-        android:layout_marginLeft="32dp"
-        />
+        <CheckBox
+            android:id="@+id/checkbox_terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eu aceito os termos e condições"
+            android:textColor="#000000"
+            android:buttonTint="#52AE77"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"/>
 
-    <Button
-        android:id="@+id/btn_Clogin"
-        android:layout_width="330dp"
-        android:layout_height="54dp"
-        android:layout_margin="32dp"
-        android:backgroundTint="#52AE77"
-        android:text="Login"
-        android:textColor="#FFFFFF" />
+        <Button
+            android:id="@+id/btn_Clogin"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:backgroundTint="#52AE77"
+            android:text="Criar Conta"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="16dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Já Registado?"
-        android:layout_gravity="center"
-        android:layout_marginTop="-30dp"
-        android:layout_marginRight="40dp"
-        />
-    <TextView
-        android:id="@+id/link_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Faça login"
-        android:textColor="#52AE77"
-        android:textStyle="bold"
-        android:layout_marginTop="-19dp"
-        android:layout_marginStart="205dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Já Registrado? " />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/link_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Faça login"
+                android:textColor="#52AE77"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

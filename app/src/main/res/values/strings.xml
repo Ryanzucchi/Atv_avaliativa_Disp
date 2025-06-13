@@ -5,4 +5,20 @@
         <item>Feminino</item>
         <item>Masculino</item>
     </string-array>
+    <!-- Seus outros strings aqui, incluindo sexo_array -->
+
+    <string-array name="deficiencia_options">
+        <item>Não</item>
+        <item>Sim</item>
+    </string-array>
+
+    <string-array name="tipos_deficiencia_array">
+        <item>Visual</item>
+        <item>Auditiva</item>
+        <item>Física</item>
+        <item>Intelectual</item>
+        <item>Múltipla</item>
+        <item>TEA (Transtorno do Espectro Autista)</item>
+        <item>Outra</item>
+    </string-array>
 </resources>

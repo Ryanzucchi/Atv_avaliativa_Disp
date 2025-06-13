@@ -1,185 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="8dp">
+    android:fillViewport="true">
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrar criança"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        android:textSize="32dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="25dp"/>
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nome"
-        android:layout_marginLeft="32dp"
-        android:textColor="#565E6C"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrar criança"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="25dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome"
+            android:textColor="#565E6C"
+            android:textStyle="bold"
+            android:labelFor="@+id/input_email" />
+
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:background="#F5F5F5"
+            android:drawableStart="@drawable/baseline_tag_faces_24"
+            android:drawablePadding="10dp"
+            android:hint="Nome da criança"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColorHint="#999999"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data de nascimento"
+            android:textColor="#565E6C"
+            android:textStyle="bold"
+            android:labelFor="@+id/input_psnome" />
+
+        <EditText
+            android:id="@+id/input_psnome"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:background="#F5F5F5"
+            android:drawableStart="@drawable/baseline_tag_faces_24"
+            android:drawablePadding="10dp"
+            android:hint="dd/mm/aaaa"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColorHint="#999999" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gênero"
+            android:textColor="#565E6C"
+            android:textStyle="bold"
+            android:labelFor="@+id/input_snome" />
+
+        <Spinner
+            android:id="@+id/input_snome"
+            android:layout_width="match_parent"
+            android:entries="@array/sexo_array"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:background="#F5F5F5"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:hint="Gênero" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Informações"
+            android:layout_marginTop="24dp"
+            android:textColor="#565E6C"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <!-- Novas caixas de seleção para Deficiência -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deficiência"
+            android:textColor="#565E6C"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:labelFor="@+id/spinner_deficiencia" />
+
+        <Spinner
+            android:id="@+id/spinner_deficiencia"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:background="#F5F5F5"
+            android:entries="@array/deficiencia_options"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp" />
+
+        <TextView
+            android:id="@+id/textView_tipo_deficiencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de Deficiência"
+            android:textColor="#565E6C"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:labelFor="@+id/spinner_tipo_deficiencia"
+            android:visibility="gone" /> <!-- Visibilidade inicial oculta, controlada por código -->
+
+        <Spinner
+            android:id="@+id/spinner_tipo_deficiencia"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:background="#F5F5F5"
+            android:entries="@array/tipos_deficiencia_array"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:visibility="gone" /> <!-- Visibilidade inicial oculta, controlada por código -->
+
+        <TextView
+            android:id="@+id/textView_descricao_outra_deficiencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descreva a Deficiência"
+            android:textColor="#565E6C"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/editText_descricao_outra_deficiencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="54dp"
+            android:layout_marginTop="8dp"
+            android:background="#F5F5F5"
+            android:hint="Ex: Síndrome de Down, Paralisia Cerebral"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColorHint="#999999"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/escolha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="escolher creche" />
+
+            <Button
+                android:id="@+id/selecao_automatica_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="seleção automatica" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Documentação"
+            android:layout_marginTop="24dp"
+            android:textColor="#565E6C"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/colorPrimary"
+            android:text="Envie, comprovante de endereço, certidão de nascimento, CPF, carteira de vacinação da criança" />
+
+        <LinearLayout
+            android:id="@+id/selectedFilesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:background="#F5F5F5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arquivos Selecionados:"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:paddingBottom="4dp"/>
+
+            <!-- Arquivos selecionados serão adicionados aqui via código -->
+
+        </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/input_email"
-        android:layout_width="330dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginBottom="12dp"
-        android:background="#F5F5F5"
-        android:drawableStart="@drawable/baseline_tag_faces_24"
-        android:drawablePadding="10dp"
-        android:hint="Nome da criança"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
+        <Button
+            android:id="@+id/btn_uparq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="upload de arquivos"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#52AE77"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="data de nascimento"
-        android:layout_marginLeft="32dp"
-        android:textColor="#565E6C"
-        android:textStyle="bold"
-        />
+        <Button
+            android:id="@+id/btn_enviar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#52AE77"/>
 
-    <EditText
-        android:id="@+id/input_psnome"
-        android:layout_width="330dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="32dp"
-        android:background="#F5F5F5"
-        android:drawableStart="@drawable/baseline_tag_faces_24"
-        android:drawablePadding="10dp"
-        android:hint="dd/mm/aaaa"
-        android:inputType="date"
-        android:focusable="true"
-        android:clickable="true"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gênero"
-        android:layout_marginLeft="32dp"
-        android:textColor="#565E6C"
-        android:textStyle="bold"
-        />
-
-    <Spinner
-        android:id="@+id/input_snome"
-        android:layout_width="330dp"
-        android:entries="@array/sexo_array"
-        android:layout_height="54dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="12dp"
-        android:background="#F5F5F5"
-        android:drawablePadding="10dp"
-        android:hint="sexo"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="informações"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="32dp"
-        android:textColor="#565E6C"
-        android:textStyle="bold"
-        android:textSize="23dp"
-        />
-
-    <EditText
-        android:id="@+id/input_telefone"
-        android:layout_width="330dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="32dp"
-        android:background="#F5F5F5"
-        android:drawablePadding="10dp"
-        android:hint="descreva condições medicas"
-        android:paddingLeft="15dp"
-        android:textColorHint="#999999" />
-
-    <Button
-        android:id="@+id/escolha"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="32dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginTop="12dp"
-        android:text="escolher creche"/>
-
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginLeft="213dp"
-        android:layout_marginTop="-60dp"
-        android:text="seleção automatica" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Documentação"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="32dp"
-        android:textColor="#565E6C"
-        android:textStyle="bold"
-        android:textSize="23dp"
-        />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="18dp"
-        android:textColor="@color/colorPrimary"
-        android:text="Envie, comprovante de endereço, certidão de nascimento, CPF, carteira de vacinação da criança" />
-
-    <TextView
-        android:id="@+id/fileNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nenhum arquivo selecionado"
-        android:layout_marginLeft="32dp"
-        android:padding="8dp"
-        android:textColor="#000000" />
-
-
-    <Button
-        android:id="@+id/btn_uparq"
-        android:layout_width="330dp"
-        android:layout_height="54dp"
-        android:text="upload de arquivos"
-        android:textColor="#FFFFFF"
-        android:layout_marginLeft="32dp"
-        android:backgroundTint="#52AE77"/>
-    <Button
-        android:id="@+id/btn_enviar"
-        android:layout_width="330dp"
-        android:layout_height="54dp"
-        android:text="Enviar"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginLeft="32dp"
-        android:backgroundTint="#52AE77"/>
-
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
