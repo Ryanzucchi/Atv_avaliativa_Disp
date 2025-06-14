@@ -36,6 +36,7 @@ import java.util.Locale;
 
 public class Kg extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "KgActivity";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
 
     BottomNavigationView bottomNavigationView;
@@ -52,7 +53,7 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
         // 1. Inicializa a ListView
         listaCreches = findViewById(R.id.list_view_creches);
         if (listaCreches == null) {
-            Log.e("KgActivity", "ListView 'list_view_creches' não encontrada.");
+            Log.e(TAG, "ListView 'list_view_creches' não encontrada.");
             Toast.makeText(this, "Erro: ListView não carregada.", Toast.LENGTH_SHORT).show();
         }
 
@@ -64,6 +65,7 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
         );
 
         // Configura o adapter para a ListView
+        // Certifique-se de que a classe 'CrecheAdapter' existe e está no pacote correto
         CrecheAdapter adapter = new CrecheAdapter(this, creches);
         listaCreches.setAdapter(adapter);
 
@@ -74,25 +76,31 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull android.view.MenuItem item) {
                     int itemId = item.getItemId();
-                    if (itemId == R.id.nav_dashboard) { // Item "Dashboard" -> ActivityMain
+                    if (itemId == R.id.nav_dashboard) {
+                        Log.d(TAG, "Navegando para ActivityMain (Dashboard).");
                         startActivity(new Intent(Kg.this, ActivityMain.class));
-                        // finish(); // Opcional: finalize a atividade atual se não quiser voltar para ela
+                        // Não chame finish() aqui
                         return true;
-                    } else if (itemId == R.id.nav_register) { // Item "Registrar Criança" -> KidRegistry
+                    } else if (itemId == R.id.nav_register) {
+                        Log.d(TAG, "Navegando para KidRegistry.");
                         startActivity(new Intent(Kg.this, KidRegistry.class));
-                        // finish();
+                        // Não chame finish() aqui
+                        return true;
+                    } else if (itemId == R.id.nav_settings) {
+                        // Já estamos na Kg, então não faz nada, apenas retorna true.
+                        Log.d(TAG, "Item 'Creches' clicado. Já estamos aqui.");
                         return true;
                     }
                     return false;
                 }
             });
 
-            // CORREÇÃO: Define o item "Creches" (nav_settings) como selecionado ao iniciar a Kg Activity
+            // **IMPORTANTE**: Define o item "Creches" (nav_settings) como selecionado ao iniciar a Kg Activity
             bottomNavigationView.setSelectedItemId(R.id.nav_settings);
-            Log.d("KgActivity", "setSelectedItemId chamado para R.id.nav_settings (Creches).");
+            Log.d(TAG, "Item 'Creches' definido como selecionado ao iniciar.");
 
         } else {
-            Log.e("KgActivity", "BottomNavigationView 'dashbottom_navigation' não encontrado em kidengardens.xml");
+            Log.e(TAG, "BottomNavigationView 'dashbottom_navigation' não encontrado em kidengardens.xml");
             Toast.makeText(this, "Erro interno: Navegação não disponível.", Toast.LENGTH_LONG).show();
         }
 
@@ -100,9 +108,9 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
-            Log.d("KgActivity", "Fragmento do mapa encontrado, solicitando o mapa assincronamente.");
+            Log.d(TAG, "Fragmento do mapa encontrado, solicitando o mapa assincronamente.");
         } else {
-            Log.e("KgActivity", "Fragmento do mapa 'map_fragment' não encontrado no layout.");
+            Log.e(TAG, "Fragmento do mapa 'map_fragment' não encontrado no layout.");
             Toast.makeText(this, "Erro: Componente do mapa não carregado.", Toast.LENGTH_LONG).show();
         }
 
@@ -120,7 +128,7 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
                 return false;
             });
         } else {
-            Log.e("KgActivity", "EditText 'input_pass' (campo de busca) não encontrado.");
+            Log.e(TAG, "EditText 'input_pass' (campo de busca) não encontrado.");
             Toast.makeText(this, "Erro: Campo de busca não carregado.", Toast.LENGTH_LONG).show();
         }
     }
@@ -130,14 +138,14 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
-        Log.d("KgActivity", "GoogleMap está pronto.");
+        Log.d(TAG, "GoogleMap está pronto.");
 
         // Verifica e solicita permissões de localização
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Log.d("KgActivity", "Permissão de localização já concedida. Habilitando minha localização.");
+            Log.d(TAG, "Permissão de localização já concedida. Habilitando minha localização.");
             enableMyLocation();
         } else {
-            Log.d("KgActivity", "Permissão de localização não concedida. Solicitando permissão.");
+            Log.d(TAG, "Permissão de localização não concedida. Solicitando permissão.");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
@@ -150,7 +158,7 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
                 getLastLocation();
             } else {
                 Toast.makeText(this, "Permissão de localização não concedida. Não é possível mostrar sua posição no mapa.", Toast.LENGTH_SHORT).show();
-                Log.w("KgActivity", "Tentativa de habilitar minha localização sem permissão.");
+                Log.w(TAG, "Tentativa de habilitar minha localização sem permissão.");
             }
         }
     }
@@ -163,18 +171,18 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
                         if (location != null) {
                             LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
-                            Log.d("KgActivity", "Localização atual obtida: " + currentLatLng.latitude + ", " + currentLatLng.longitude);
+                            Log.d(TAG, "Localização atual obtida: " + currentLatLng.latitude + ", " + currentLatLng.longitude);
                         } else {
                             Toast.makeText(Kg.this, "Não foi possível obter a localização atual. Verifique se o GPS está ativado e tente novamente.", Toast.LENGTH_LONG).show();
-                            Log.w("KgActivity", "getLastLocation retornou null.");
+                            Log.w(TAG, "getLastLocation retornou null.");
                         }
                     })
                     .addOnFailureListener(this, e -> {
                         Toast.makeText(Kg.this, "Erro ao obter localização: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("KgActivity", "Erro ao obter localização FusedLocationProviderClient", e);
+                        Log.e(TAG, "Erro ao obter localização FusedLocationProviderClient", e);
                     });
         } catch (SecurityException e) {
-            Log.e("KgActivity", "SecurityException: Permissão de localização não concedida ou problema ao acessar getLastLocation.", e);
+            Log.e(TAG, "SecurityException: Permissão de localização não concedida ou problema ao acessar getLastLocation.", e);
             Toast.makeText(this, "Permissão de localização é necessária.", Toast.LENGTH_LONG).show();
         }
     }
@@ -185,11 +193,11 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d("KgActivity", "Permissão de localização concedida pelo usuário.");
+                Log.d(TAG, "Permissão de localização concedida pelo usuário.");
                 enableMyLocation();
             } else {
                 Toast.makeText(this, "Permissão de localização é necessária para exibir sua posição no mapa.", Toast.LENGTH_LONG).show();
-                Log.d("KgActivity", "Permissão de localização negada pelo usuário.");
+                Log.d(TAG, "Permissão de localização negada pelo usuário.");
             }
         }
     }
@@ -215,18 +223,18 @@ public class Kg extends AppCompatActivity implements OnMapReadyCallback {
                     mGoogleMap.addMarker(new MarkerOptions().position(searchLatLng).title(address.getAddressLine(0)));
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(searchLatLng, 15));
                     Toast.makeText(this, "Buscando por: " + address.getAddressLine(0), Toast.LENGTH_SHORT).show();
-                    Log.d("KgActivity", "Busca bem-sucedida para: " + searchText);
+                    Log.d(TAG, "Busca bem-sucedida para: " + searchText);
                 } else {
                     Toast.makeText(this, "Mapa não está pronto para a busca.", Toast.LENGTH_SHORT).show();
-                    Log.w("KgActivity", "performSearch chamado, mas mGoogleMap é null.");
+                    Log.w(TAG, "performSearch chamado, mas mGoogleMap é null.");
                 }
             } else {
                 Toast.makeText(this, "Nenhum resultado encontrado para: " + searchText, Toast.LENGTH_SHORT).show();
-                Log.d("KgActivity", "Nenhum resultado de Geocoder para: " + searchText);
+                Log.d(TAG, "Nenhum resultado de Geocoder para: " + searchText);
             }
         } catch (IOException e) {
             Toast.makeText(this, "Erro na busca: Verifique sua conexão com a internet.", Toast.LENGTH_LONG).show();
-            Log.e("KgActivity", "Erro no Geocoder para '" + searchText + "': " + e.getMessage(), e);
+            Log.e(TAG, "Erro no Geocoder para '" + searchText + "': " + e.getMessage(), e);
         }
     }
 }
