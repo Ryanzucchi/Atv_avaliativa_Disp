@@ -9,6 +9,7 @@ import android.widget.TextView;
 // import android.widget.Toast; // Removido Toast para manter o código original, adicione se quiser feedback
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class Entrance extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class Entrance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Certifique-se de que este R.layout.entrance corresponde ao seu XML de entrada
         setContentView(R.layout.entrance);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         // Acha os botões pelo ID e os atribui a variáveis do tipo ImageButton
         btnLogin = findViewById(R.id.btn_login);

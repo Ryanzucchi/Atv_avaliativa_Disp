@@ -1,6 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Cor principal da sua aplicação -->
-    <color name="colorPrimary">#4CAF50</color> <!-- Verde, por exemplo -->
-    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorPrimary">#4CAF50</color> <color name="colorPrimaryDark">#388E3C</color>
     <color name="colorAccent">#FFFFFF</color>
-</resources>
+
+    <color name="white_full">#FFFFFFFF</color>
+    <color name="black_full">#FF000000</color>
+    <color name="light_gray">#FFF0F0F0</color> <color name="light_gray_container">#F8F8F8</color> <color name="dark_gray_text">#FF333333</color>
+    <color name="gray_hint">#FF888888</color>
+    <color name="light_gray_line">#FFCCCCCC</color> </resources>
