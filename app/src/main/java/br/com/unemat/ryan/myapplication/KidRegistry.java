@@ -1,5 +1,6 @@
 package br.com.unemat.ryan.myapplication;
 
+import android.app.DatePickerDialog; // Import for DatePickerDialog
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -7,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -24,19 +27,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat; // Import for SimpleDateFormat
 import java.util.ArrayList;
+import java.util.Calendar; // Import for Calendar
 import java.util.List;
+import java.util.Locale; // Import for Locale
 
 public class KidRegistry extends AppCompatActivity {
 
     private static final String TAG = "KidRegistry";
     private static final int PICK_FILE_REQUEST = 1;
     private static final int MAX_FILES_DISPLAY = 15;
+    private static final int MIN_REQUIRED_FILES = 5;
 
     // UI Elements Declaration
     private Button btnSelectCreche;
@@ -52,11 +60,21 @@ public class KidRegistry extends AppCompatActivity {
     private TextView textViewDescricaoOutraDeficiencia;
     private EditText editTextDescricaoOutraDeficiencia;
 
+    // New UI elements for validation
+    private EditText inputName;
+    private EditText inputDateOfBirth; // This is the one we'll add the DatePicker to
+    private Spinner spinnerGender;
+
+
     // List to store URIs of selected files, declared as a class member
     private List<Uri> selectedFileUris = new ArrayList<>();
 
     // Bottom Navigation View
     private BottomNavigationView bottomNavigationView;
+
+    // Calendar instance for DatePicker
+    private Calendar calendar = Calendar.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +95,23 @@ public class KidRegistry extends AppCompatActivity {
         textViewDescricaoOutraDeficiencia = findViewById(R.id.textView_descricao_outra_deficiencia);
         editTextDescricaoOutraDeficiencia = findViewById(R.id.editText_descricao_outra_deficiencia);
 
+        inputName = findViewById(R.id.input_email);
+        inputDateOfBirth = findViewById(R.id.input_psnome); // Initialize inputDateOfBirth
+        spinnerGender = findViewById(R.id.input_snome);
+
+
+        // --- DatePicker Setup for inputDateOfBirth ---
+        // Set an OnClickListener to show the DatePickerDialog
+        inputDateOfBirth.setOnClickListener(v -> {
+            showDatePickerDialog();
+        });
+
+        // Set the inputDateOfBirth as not editable manually, only via DatePicker
+        inputDateOfBirth.setFocusable(false);
+        inputDateOfBirth.setClickable(true);
+        // --- End DatePicker Setup ---
+
+
         // --- Bottom Navigation View Setup ---
         bottomNavigationView = findViewById(R.id.dashbottom_navigation);
         if (bottomNavigationView != null) {
@@ -91,16 +126,14 @@ public class KidRegistry extends AppCompatActivity {
                     if (itemId == R.id.nav_dashboard) {
                         Log.d(TAG, "Navegando para ActivityMain (Dashboard).");
                         startActivity(new Intent(KidRegistry.this, ActivityMain.class));
-                        finish(); // Finish KidRegistry to remove it from the back stack
+                        finish();
                         return true;
                     } else if (itemId == R.id.nav_register) {
-                        // Already in KidRegistry, do nothing
                         Log.d(TAG, "Item 'Register' clicado. Já estamos aqui.");
                         return true;
                     } else if (itemId == R.id.nav_settings) {
                         Log.d(TAG, "Navegando para Kg (Settings).");
                         startActivity(new Intent(KidRegistry.this, Kg.class));
-                        // Consider calling finish() here if Kg is also a primary navigation destination
                         return true;
                     }
                     return false;
@@ -134,12 +167,14 @@ public class KidRegistry extends AppCompatActivity {
         // Set up "Send" button listener
         if (btnEnviar != null) {
             btnEnviar.setOnClickListener(v -> {
-                // Here you can access the URIs of the files in 'selectedFileUris'
-                // for sending or processing.
-                Toast.makeText(KidRegistry.this, "Dados e " + selectedFileUris.size() + " arquivos enviados!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(KidRegistry.this, ActivityMain.class);
-                startActivity(intent);
-                finish(); // Finish KidRegistry after sending to return to ActivityMain
+                if (isFormValid()) {
+                    Toast.makeText(KidRegistry.this, "Dados e " + selectedFileUris.size() + " arquivos enviados!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(KidRegistry.this, ActivityMain.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(KidRegistry.this, "Preencha todos os campos e anexe pelo menos " + MIN_REQUIRED_FILES + " arquivos.", Toast.LENGTH_LONG).show();
+                }
             });
         } else {
             Toast.makeText(this, "Erro: Botão 'btn_enviar' não encontrado no layout.", Toast.LENGTH_LONG).show();
@@ -150,7 +185,7 @@ public class KidRegistry extends AppCompatActivity {
             btnUploadArquivos.setOnClickListener(v -> {
                 if (selectedFileUris.size() >= MAX_FILES_DISPLAY) {
                     Toast.makeText(KidRegistry.this, "Limite máximo de " + MAX_FILES_DISPLAY + " arquivos atingido.", Toast.LENGTH_SHORT).show();
-                    return; // Prevent opening the file picker
+                    return;
                 }
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.setType("*/*");
@@ -179,11 +214,12 @@ public class KidRegistry extends AppCompatActivity {
                         textViewDescricaoOutraDeficiencia.setVisibility(View.GONE);
                         editTextDescricaoOutraDeficiencia.setVisibility(View.GONE);
                     }
+                    checkFormCompletion();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    // Not necessary to implement here
+                    checkFormCompletion();
                 }
             });
         } else {
@@ -203,17 +239,82 @@ public class KidRegistry extends AppCompatActivity {
                         textViewDescricaoOutraDeficiencia.setVisibility(View.GONE);
                         editTextDescricaoOutraDeficiencia.setVisibility(View.GONE);
                     }
+                    checkFormCompletion();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    // Not necessary to implement here
+                    checkFormCompletion();
                 }
             });
         } else {
             Toast.makeText(this, "Erro: Elementos para descrição de deficiência não encontrados.", Toast.LENGTH_LONG).show();
         }
+
+        // Add TextWatchers to EditText fields for real-time validation
+        inputName.addTextChangedListener(formTextWatcher);
+        // inputDateOfBirth no longer needs a TextWatcher because its value is set by the DatePicker
+        editTextDescricaoOutraDeficiencia.addTextChangedListener(formTextWatcher);
+
+        // Add OnItemSelectedListeners to Spinners for real-time validation
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                checkFormCompletion();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                checkFormCompletion();
+            }
+        });
+
+        // Initial check when the activity starts
+        checkFormCompletion();
     }
+
+    // TextWatcher for EditText fields
+    private TextWatcher formTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            checkFormCompletion();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
+    // --- DatePicker Methods ---
+    private void showDatePickerDialog() {
+        DatePickerDialog.OnDateSetListener dateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateDateInView();
+            checkFormCompletion(); // Re-check form completion after date is set
+        };
+
+        new DatePickerDialog(
+                KidRegistry.this,
+                dateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        ).show();
+    }
+
+    private void updateDateInView() {
+        String myFormat = "dd/MM/yyyy"; // In Brazil, date format is dd/mm/yyyy
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR")); // Use Brazilian locale
+        inputDateOfBirth.setText(sdf.format(calendar.getTime()));
+    }
+    // --- End DatePicker Methods ---
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -227,19 +328,19 @@ public class KidRegistry extends AppCompatActivity {
                 for (int i = 0; i < count; i++) {
                     if (currentFilesCount < MAX_FILES_DISPLAY) {
                         Uri fileUri = data.getClipData().getItemAt(i).getUri();
-                        selectedFileUris.add(fileUri); // Add to the list
-                        displayFilePreview(fileUri); // Display preview
+                        selectedFileUris.add(fileUri);
+                        displayFilePreview(fileUri);
                         currentFilesCount++;
                     } else {
                         Toast.makeText(this, "Limite máximo de " + MAX_FILES_DISPLAY + " arquivos atingido. Alguns arquivos não foram adicionados.", Toast.LENGTH_LONG).show();
-                        break; // Exit loop if limit is reached
+                        break;
                     }
                 }
             } else if (data.getData() != null) { // A single file selected
                 if (currentFilesCount < MAX_FILES_DISPLAY) {
                     Uri fileUri = data.getData();
-                    selectedFileUris.add(fileUri); // Add to the list
-                    displayFilePreview(fileUri); // Display preview
+                    selectedFileUris.add(fileUri);
+                    displayFilePreview(fileUri);
                 } else {
                     Toast.makeText(this, "Limite de " + MAX_FILES_DISPLAY + " arquivos atingido. O arquivo não foi adicionado.", Toast.LENGTH_LONG).show();
                 }
@@ -250,23 +351,21 @@ public class KidRegistry extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Nenhum arquivo selecionado.", Toast.LENGTH_SHORT).show();
             }
+            checkFormCompletion();
         }
     }
 
-    // Helper method to display preview and name of each file
     private void displayFilePreview(Uri fileUri) {
         if (selectedFilesContainer == null) {
             Toast.makeText(this, "Erro interno: Container de arquivos não encontrado.", Toast.LENGTH_LONG).show();
             return;
         }
 
-        // Create a horizontal LinearLayout for each file entry (icon + name)
         LinearLayout fileEntryLayout = new LinearLayout(this);
         fileEntryLayout.setOrientation(LinearLayout.HORIZONTAL);
         fileEntryLayout.setPadding(8, 8, 8, 8);
         fileEntryLayout.setGravity(Gravity.CENTER_VERTICAL);
 
-        // Create an ImageView for the preview or default icon
         ImageView imageView = new ImageView(this);
         LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
                 (int) getResources().getDimension(R.dimen.preview_icon_size),
@@ -275,7 +374,6 @@ public class KidRegistry extends AppCompatActivity {
         imageView.setLayoutParams(imageParams);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        // Create a TextView for the file name
         TextView textView = new TextView(this);
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -283,7 +381,6 @@ public class KidRegistry extends AppCompatActivity {
         textView.setLayoutParams(textParams);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
-        // Get file name and MIME type
         String fileName = "Arquivo Desconhecido";
         String mimeType = getContentResolver().getType(fileUri);
 
@@ -305,7 +402,6 @@ public class KidRegistry extends AppCompatActivity {
 
         textView.setText(fileName);
 
-        // Set preview image or default icon based on MIME type
         if (mimeType != null && mimeType.startsWith("image/")) {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
@@ -321,11 +417,67 @@ public class KidRegistry extends AppCompatActivity {
             imageView.setImageResource(android.R.drawable.ic_menu_upload);
         }
 
-        // Add ImageView and TextView to the file entry layout
         fileEntryLayout.addView(imageView);
         fileEntryLayout.addView(textView);
 
-        // Add the file entry to the main container
         selectedFilesContainer.addView(fileEntryLayout);
+    }
+
+    private void checkFormCompletion() {
+        boolean isNameFilled = !inputName.getText().toString().trim().isEmpty();
+        boolean isDateOfBirthFilled = !inputDateOfBirth.getText().toString().trim().isEmpty(); // Check if date field is filled
+        boolean isGenderSelected = spinnerGender.getSelectedItemPosition() > 0;
+
+        boolean isDeficiencyHandled = false;
+        String selectedDeficiencyOption = spinnerDeficiencia.getSelectedItem().toString();
+        if (selectedDeficiencyOption.equals("Não")) {
+            isDeficiencyHandled = true;
+        } else if (selectedDeficiencyOption.equals("Sim")) {
+            boolean isTypeOfDeficiencySelected = spinnerTipoDeficiencia.getSelectedItemPosition() > 0;
+            String selectedTypeOfDeficiency = spinnerTipoDeficiencia.getSelectedItem().toString();
+
+            if (selectedTypeOfDeficiency.equals("Outra") || selectedTypeOfDeficiency.equals("Múltipla")) {
+                isDeficiencyHandled = isTypeOfDeficiencySelected && !editTextDescricaoOutraDeficiencia.getText().toString().trim().isEmpty();
+            } else {
+                isDeficiencyHandled = isTypeOfDeficiencySelected;
+            }
+        }
+
+        boolean areEnoughFilesUploaded = selectedFileUris.size() >= MIN_REQUIRED_FILES;
+
+        boolean isFormComplete = isNameFilled && isDateOfBirthFilled && isGenderSelected && isDeficiencyHandled && areEnoughFilesUploaded;
+
+        if (btnEnviar != null) {
+            btnEnviar.setEnabled(isFormComplete);
+            if (isFormComplete) {
+                btnEnviar.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+            } else {
+                btnEnviar.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.darker_gray));
+            }
+        }
+    }
+
+    private boolean isFormValid() {
+        boolean isNameFilled = !inputName.getText().toString().trim().isEmpty();
+        boolean isDateOfBirthFilled = !inputDateOfBirth.getText().toString().trim().isEmpty();
+        boolean isGenderSelected = spinnerGender.getSelectedItemPosition() > 0;
+
+        boolean isDeficiencyValid = false;
+        String selectedDeficiencyOption = spinnerDeficiencia.getSelectedItem().toString();
+        if (selectedDeficiencyOption.equals("Não")) {
+            isDeficiencyValid = true;
+        } else if (selectedDeficiencyOption.equals("Sim")) {
+            boolean isTypeOfDeficiencySelected = spinnerTipoDeficiencia.getSelectedItemPosition() > 0;
+            String selectedTypeOfDeficiency = spinnerTipoDeficiencia.getSelectedItem().toString();
+            if (selectedTypeOfDeficiency.equals("Outra") || selectedTypeOfDeficiency.equals("Múltipla")) {
+                isDeficiencyValid = isTypeOfDeficiencySelected && !editTextDescricaoOutraDeficiencia.getText().toString().trim().isEmpty();
+            } else {
+                isDeficiencyValid = isTypeOfDeficiencySelected;
+            }
+        }
+
+        boolean areEnoughFilesUploaded = selectedFileUris.size() >= MIN_REQUIRED_FILES;
+
+        return isNameFilled && isDateOfBirthFilled && isGenderSelected && isDeficiencyValid && areEnoughFilesUploaded;
     }
 }

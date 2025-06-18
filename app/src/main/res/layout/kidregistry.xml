@@ -173,6 +173,7 @@
 
             <Button
                 android:id="@+id/escolha"
+                android:textColor="@color/white_full"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -182,6 +183,7 @@
 
             <Button
                 android:id="@+id/selecao_automatica_button"
+                android:textColor="@color/white_full"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
