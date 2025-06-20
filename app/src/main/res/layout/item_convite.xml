@@ -3,48 +3,125 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="12dp"
-    android:background="#FAFAFA"
-    android:layout_marginBottom="8dp">
-
-    <TextView
-        android:id="@+id/nome_idade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edson, 4 anos"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/bairro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bairro do limoeiro" />
+    android:padding="16dp"
+    android:background="#FFFFFF"
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="#FAFAFA"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/nome_idade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edson, 4 anos"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/bairro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bairro do limoeiro"
+            android:textColor="@android:color/darker_gray"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Documentos para Análise"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:layout_marginBottom="16dp">
+
+        <ImageView
+            android:id="@+id/documento_1"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Documento em pasta"
+            android:src="@drawable/d1" />
+
+        <ImageView
+            android:id="@+id/documento_2"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Documento em prancheta"
+            android:src="@drawable/d2" />
+
+        <ImageView
+            android:id="@+id/documento_3"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Documento com carimbo urgente"
+            android:src="@drawable/d3" />
+
+        <ImageView
+            android:id="@+id/documento_4"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Pergaminho antigo"
+            android:src="@drawable/d4" />
+
+        <ImageView
+            android:id="@+id/documento_5"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Pilha de documentos com clipe"
+            android:src="@drawable/d5" />
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="8dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_convocar"
-            android:backgroundTint="#52AE77"
-            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Convocar" />
+            android:backgroundTint="#52AE77"
+            android:text="Convocar"
+            android:textColor="#FFFFFF" />
 
         <Space
             android:layout_width="16dp"
             android:layout_height="wrap_content" />
 
         <Button
-            android:backgroundTint="#52AE77"
             android:id="@+id/btn_recusar"
-            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recusar" />
+            android:backgroundTint="#D32F2F"
+            android:text="Recusar"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
+
 </LinearLayout>

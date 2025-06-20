@@ -86,7 +86,7 @@
             android:background="#F5F5F5"
             android:drawableStart="@drawable/ic_lock_24"
             android:drawablePadding="10dp"
-            android:hint="Insira a senha"
+            android:hint="Crie sua senha"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:textColorHint="#999999"

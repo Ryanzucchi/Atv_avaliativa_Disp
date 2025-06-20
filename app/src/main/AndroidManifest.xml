@@ -34,6 +34,7 @@
         <activity android:name=".AccountCreateActivity" android:exported="true"/>
         <activity android:name=".EntryLoginAdmActivity" />
         <activity android:name=".Crecheadm" />
+        <activity android:name=".FullScreenImageActivity"/>
         <activity android:name=".ActivityMain" />
         <activity android:name=".Kg" />
         <activity android:name=".KidRegistry" />
