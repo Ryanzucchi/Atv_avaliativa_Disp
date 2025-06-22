@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,6 +38,7 @@ public class ActivityMain extends AppCompatActivity implements PerfilAdapter.Per
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
         setupBottomNavigation();
         setupListaPerfis();
@@ -134,7 +136,44 @@ public class ActivityMain extends AppCompatActivity implements PerfilAdapter.Per
 
     private void setupBottomNavigation() {
         bottomNavigationView = findViewById(R.id.dashbottom_navigation);
-        if (bottomNavigationView == null) { return; }
-        // ... (seu código de navegação)
+        if (bottomNavigationView == null) {
+            Log.e(TAG, "BottomNavigationView não encontrado!");
+            return;
+        }
+
+        // LÓGICA DE NAVEGAÇÃO COMPLETA E CORRIGIDA
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+
+                // Verifica se o item clicado já é o item atual. Se for, não faz nada.
+                if (itemId == bottomNavigationView.getSelectedItemId()) {
+                    return true;
+                }
+
+                if (itemId == R.id.nav_dashboard) {
+                    // Já estamos aqui, então não precisamos iniciar uma nova Activity
+                    // Mas retornamos true para o item ser selecionado visualmente.
+                    return true;
+                } else if (itemId == R.id.nav_register) {
+                    // Inicia a Activity de Registro
+                    startActivity(new Intent(ActivityMain.this, KidRegistry.class));
+                    return true; // Retorna TRUE para confirmar a seleção
+                } else if (itemId == R.id.nav_settings) {
+                    // Inicia a Activity de Configurações
+                    startActivity(new Intent(ActivityMain.this, Kg.class));
+                    return true; // Retorna TRUE para confirmar a seleção
+                }
+
+                // Se o item não for reconhecido, retorna false
+                return false;
+            }
+        });
+
+        // Garante que o item do dashboard comece selecionado
+        if (bottomNavigationView.getMenu().findItem(R.id.nav_dashboard) != null) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_dashboard);
+        }
     }
 }
