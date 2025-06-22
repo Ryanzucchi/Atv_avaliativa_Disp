@@ -3,20 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".ActivityMain">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/dashbottom_navigation"
         android:fillViewport="true">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -26,47 +24,23 @@
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="32dp" />
-
             <EditText
                 android:id="@+id/input_pass"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:background="#F5F5F5"
-                android:drawableStart="@android:drawable/ic_menu_search"
-                android:drawablePadding="10dp"
                 android:hint="Procurar"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:textColorHint="#999999"
                 android:inputType="text"
-                android:layout_marginBottom="32dp" />
-
-            <Button
-                android:id="@+id/btn_status_solicitacao"
+                android:layout_marginBottom="24dp" />
+            <ListView
+                android:id="@+id/lista_perfis"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Status de solicitação"
-                android:layout_marginTop="16dp"
-                android:textColor="#000000"
-                android:backgroundTint="#D9D9D9"
-                android:layout_marginBottom="8dp"/>
-
-            <Button
-                android:id="@+id/Idteste"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Atualizar documentos"
-                android:layout_marginTop="8dp"
-                android:textColor="#000000"
-                android:backgroundTint="#D9D9D9"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/dashbottom_navigation"
         android:layout_width="match_parent"
@@ -74,5 +48,4 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled" />
-
 </RelativeLayout>

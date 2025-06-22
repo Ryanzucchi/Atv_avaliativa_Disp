@@ -1,119 +1,140 @@
 package br.com.unemat.ryan.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class ActivityMain extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity implements PerfilAdapter.PerfilAdapterListener {
 
     private static final String TAG = "ActivityMain";
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    private static final int PICK_FILE_REQUEST_CODE = 101;
+
     BottomNavigationView bottomNavigationView;
-    private Button btnStatusSolicitacao;
-    private Button btnAtualizarDocumentos;
-    private EditText inputSearch;
+    ListView listaPerfis;
+    PerfilAdapter adapter;
+    ArrayList<Convite> listaDePerfis;
+    private int itemPositionParaAtualizar = -1;
+    private int documentoIndexParaAtualizar = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupBottomNavigation();
+        setupListaPerfis();
+    }
 
-        bottomNavigationView = findViewById(R.id.dashbottom_navigation);
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull android.view.MenuItem item) {
-                    int itemId = item.getItemId();
-                    if (itemId == R.id.nav_dashboard) {
-                        // Já estamos na ActivityMain, então não faz nada, apenas retorna true.
-                        Log.d(TAG, "Item 'Dashboard' clicado. Já estamos aqui.");
-                        return true;
-                    } else if (itemId == R.id.nav_register) {
-                        Log.d(TAG, "Navegando para KidRegistry.");
-                        startActivity(new Intent(ActivityMain.this, KidRegistry.class));
-                        // Não chame finish() aqui. KidRegistry não tem BottomNav, então ActivityMain
-                        // deve permanecer na pilha para que o usuário possa voltar facilmente.
-                        return true;
-                    } else if (itemId == R.id.nav_settings) {
-                        Log.d(TAG, "Navegando para Kg.");
-                        startActivity(new Intent(ActivityMain.this, Kg.class));
-                        // Não chame finish() aqui, Kg tem BottomNav e gerencia sua própria seleção.
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            // **IMPORTANTE**: Define o item "Dashboard" como selecionado ao iniciar a ActivityMain
-            bottomNavigationView.setSelectedItemId(R.id.nav_dashboard);
-            Log.d(TAG, "Item 'Dashboard' definido como selecionado ao iniciar.");
+    @Override
+    public void onAdicionarDocumentoClick(int position) {
+        this.itemPositionParaAtualizar = position;
+        this.documentoIndexParaAtualizar = 0;
+        verificarPermissaoEabrirSeletorDeArquivos();
+    }
+
+    @Override
+    public void onAlterarDocumentoClick(int position, int documentoIndex) {
+        this.itemPositionParaAtualizar = position;
+        this.documentoIndexParaAtualizar = documentoIndex;
+        verificarPermissaoEabrirSeletorDeArquivos();
+    }
+
+    private void verificarPermissaoEabrirSeletorDeArquivos() {
+        String permissaoNecessaria;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissaoNecessaria = Manifest.permission.READ_MEDIA_IMAGES;
         } else {
-            Log.e(TAG, "BottomNavigationView 'dashbottom_navigation' não encontrado em activity_main.xml");
-            Toast.makeText(this, "Erro interno: Navegação não disponível.", Toast.LENGTH_LONG).show();
+            permissaoNecessaria = Manifest.permission.READ_EXTERNAL_STORAGE;
         }
-
-        btnStatusSolicitacao = findViewById(R.id.btn_status_solicitacao);
-        if (btnStatusSolicitacao != null) {
-            btnStatusSolicitacao.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showStatusDialog();
-                }
-            });
+        if (ContextCompat.checkSelfPermission(this, permissaoNecessaria) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{permissaoNecessaria}, PERMISSION_REQUEST_CODE);
         } else {
-            Log.e(TAG, "Botão 'btn_status_solicitacao' não encontrado.");
-        }
-
-        btnAtualizarDocumentos = findViewById(R.id.Idteste);
-        if (btnAtualizarDocumentos != null) {
-            btnAtualizarDocumentos.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "Botão 'Atualizar documentos' clicado.");
-                }
-            });
-        } else {
-            Log.e(TAG, "Botão 'Idteste' não encontrado.");
-        }
-
-        inputSearch = findViewById(R.id.input_pass);
-        if (inputSearch == null) {
-            Log.e(TAG, "EditText 'input_pass' (campo de busca) não encontrado.");
+            abrirSeletorDeArquivos();
         }
     }
 
-    private void showStatusDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Status da Solicitação");
+    private void abrirSeletorDeArquivos() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        String[] mimeTypes = {"image/*", "application/pdf"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+    }
 
-        final TextView messageView = new TextView(this);
-        messageView.setText("edson - convocado com documentos pendentes, trazer documentos pessoalmente na creche");
-        messageView.setPadding(20, 20, 20, 20);
-        messageView.setMovementMethod(new ScrollingMovementMethod());
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            abrirSeletorDeArquivos();
+        } else {
+            Toast.makeText(this, "Permissão para acessar arquivos é necessária.", Toast.LENGTH_LONG).show();
+        }
+    }
 
-        final ScrollView scrollView = new ScrollView(this);
-        scrollView.addView(messageView);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri arquivoUri = data.getData();
+            if (itemPositionParaAtualizar != -1) {
+                Convite conviteParaAtualizar = listaDePerfis.get(itemPositionParaAtualizar);
+                List<Object> documentos = conviteParaAtualizar.getDocumentos();
 
-        builder.setView(scrollView);
+                if (documentoIndexParaAtualizar == 0) { // Adicionar
+                    if (documentos.size() < 15) {
+                        documentos.add(arquivoUri);
+                        Toast.makeText(this, "Documento adicionado!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Limite de 15 documentos atingido.", Toast.LENGTH_SHORT).show();
+                    }
+                } else { // Alterar
+                    int indexNaLista = documentoIndexParaAtualizar - 1;
+                    if (indexNaLista >= 0 && indexNaLista < documentos.size()) {
+                        documentos.set(indexNaLista, arquivoUri);
+                        Toast.makeText(this, "Documento alterado!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
 
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            dialog.dismiss();
-        });
+    private void setupListaPerfis() {
+        listaPerfis = findViewById(R.id.lista_perfis);
+        listaDePerfis = new ArrayList<>();
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        Log.d(TAG, "Diálogo de status de solicitação exibido.");
+        List<Object> docsRyan = new ArrayList<>(Arrays.asList(R.drawable.d1, R.drawable.d2));
+        String situacaoRyan = "Convocado com documentos faltantes. Por favor, comparecer pessoalmente à creche A.";
+        listaDePerfis.add(new Convite("Ryan, 5 anos", "Jardim Imperial", situacaoRyan, docsRyan));
+
+        List<Object> docsJessica = new ArrayList<>(Arrays.asList(R.drawable.d3, R.drawable.d4, R.drawable.d5));
+        String situacaoJessica = "Em análise";
+        listaDePerfis.add(new Convite("Jéssica, 4 anos", "Centro", situacaoJessica, docsJessica));
+
+        adapter = new PerfilAdapter(this, listaDePerfis, this);
+        listaPerfis.setAdapter(adapter);
+    }
+
+    private void setupBottomNavigation() {
+        bottomNavigationView = findViewById(R.id.dashbottom_navigation);
+        if (bottomNavigationView == null) { return; }
+        // ... (seu código de navegação)
     }
 }
