@@ -54,4 +54,5 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation(libs.firebase.bom)
     implementation("com.google.android.libraries.places:places:3.4.0")
+    implementation("com.google.android.material:material:1.11.0")
 }
