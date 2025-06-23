@@ -23,75 +23,143 @@
             android:layout_marginTop="48dp"
             android:layout_marginBottom="32dp"/>
 
-        <EditText
-            android:id="@+id/input_email"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/ic_email_or_cpf"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            app:hintTextColor="#52AE77"
+            android:textColorHint="#999999"
+            app:boxStrokeColor="#52AE77"
+            android:drawableStart="@drawable/baseline_tag_faces_24"
             android:drawablePadding="10dp"
-            android:hint="Insira CPF ou email"
+            app:placeholderText="Insira seu EMAIL"
+            app:placeholderTextColor="#999999"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:textColorHint="#999999"
-            android:inputType="textEmailAddress"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp">
 
-        <EditText
-            android:id="@+id/input_psnome"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/ic_person_24"
+            android:layout_height="wrap_content"
+            android:hint="CPF"
+            app:hintTextColor="#52AE77"
+            android:textColorHint="#999999"
+            app:boxStrokeColor="#52AE77"
+            android:drawableStart="@drawable/baseline_tag_faces_24"
             android:drawablePadding="10dp"
-            android:hint="primeiro nome"
+            app:placeholderText="Digite seu CPF"
+            app:placeholderTextColor="#999999"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:textColorHint="#999999"
-            android:inputType="textPersonName"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="20dp">
 
-        <EditText
-            android:id="@+id/input_snome"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/ic_person_24"
+            android:layout_height="wrap_content"
+            android:hint="Primeiro Nome"
+            app:hintTextColor="#52AE77"
+            android:textColorHint="#999999"
+            app:boxStrokeColor="#52AE77"
+            android:drawableStart="@drawable/baseline_tag_faces_24"
             android:drawablePadding="10dp"
+            app:placeholderText="Insira seu primeiro nome"
+            app:placeholderTextColor="#999999"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_psnome"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="sobrenome"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            app:hintTextColor="#52AE77"
             android:textColorHint="#999999"
-            android:inputType="textPersonName"
-            android:layout_marginBottom="16dp"/>
-
-        <EditText
-            android:id="@+id/input_telefone"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/ic_phone_24"
+            app:boxStrokeColor="#52AE77"
+            android:drawableStart="@drawable/baseline_tag_faces_24"
             android:drawablePadding="10dp"
-            android:hint="telefone"
+            app:placeholderText="Insira seu sobrenome"
+            app:placeholderTextColor="#999999"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:textColorHint="#999999"
-            android:inputType="phone"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp">
 
-        <EditText
-            android:id="@+id/input_pass"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_snome"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/ic_lock_24"
+            android:layout_height="wrap_content"
+            android:hint="Telefone"
+            app:hintTextColor="#52AE77"
+            android:textColorHint="#999999"
+            app:boxStrokeColor="#52AE77"
+            android:drawableStart="@drawable/baseline_tag_faces_24"
             android:drawablePadding="10dp"
-            android:hint="Crie sua senha"
+            app:placeholderText="Insira seu número de telefone"
+            app:placeholderTextColor="#999999"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_telefone"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Senha"
+            app:hintTextColor="#52AE77"
             android:textColorHint="#999999"
-            android:inputType="textPassword"
-            android:layout_marginBottom="24dp"/>
+            app:boxStrokeColor="#52AE77"
+            android:drawableStart="@drawable/baseline_tag_faces_24"
+            android:drawablePadding="10dp"
+            app:placeholderText="Crie sua senha"
+            app:placeholderTextColor="#999999"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_pass"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
             android:id="@+id/checkbox_terms"
