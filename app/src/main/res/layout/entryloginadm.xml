@@ -37,11 +37,12 @@
             android:layout_marginBottom="20dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_cpf"
+                android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:drawableStart="@drawable/ic_person_24"
                 android:drawablePadding="10dp"
+                android:maxLength="11"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
