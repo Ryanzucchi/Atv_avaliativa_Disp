@@ -31,7 +31,6 @@
             app:hintTextColor="#52AE77"
             android:textColorHint="#999999"
             app:boxStrokeColor="#52AE77"
-            android:drawableStart="@drawable/baseline_tag_faces_24"
             android:drawablePadding="10dp"
             app:placeholderText="Digite seu CPF"
             app:placeholderTextColor="#999999"
@@ -41,6 +40,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_cpf"
+                android:drawableStart="@drawable/baseline_tag_faces_24"
+                android:drawablePadding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:inputType="number" />
