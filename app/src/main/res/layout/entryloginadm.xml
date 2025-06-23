@@ -23,37 +23,81 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="40dp"/>
 
-        <EditText
-            android:id="@+id/input_email"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/baseline_tag_faces_24"
-            android:drawablePadding="10dp"
-            android:hint="Insira CPF ou email"
+            android:layout_height="wrap_content"
+            android:hint="CPF"
+            android:textColorHint="#999999"
+            app:boxStrokeColor="#52AE77"
+            app:placeholderText="Insira seu cpf"
+            app:placeholderTextColor="#999999"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:textColorHint="#999999"
-            android:inputType="textEmailAddress"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp">
 
-        <EditText
-            android:id="@+id/input_pass"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:drawableStart="@drawable/ic_person_24"
+                android:drawablePadding="10dp"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <EditText-->
+<!--            android:id="@+id/input_email"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:background="#F5F5F5"-->
+<!--            android:drawableStart="@drawable/baseline_tag_faces_24"-->
+<!--            android:drawablePadding="10dp"-->
+<!--            android:hint="Insira CPF ou email"-->
+<!--            android:paddingStart="15dp"-->
+<!--            android:paddingEnd="15dp"-->
+<!--            android:textColorHint="#999999"-->
+<!--            android:inputType="textEmailAddress"-->
+<!--            android:layout_marginBottom="20dp"/>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/baseline_tag_faces_24"
-            android:drawablePadding="10dp"
-            android:hint="Insira a senha"
+            android:layout_height="wrap_content"
+            android:hint="Senha"
+            android:textColorHint="#999999"
+            app:boxStrokeColor="#52AE77"
+            app:placeholderText="Insira sua senha"
+            app:placeholderTextColor="#999999"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:textColorHint="#999999"
-            android:inputType="textPassword"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="32dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_pass"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:drawableStart="@drawable/ic_lock_24"
+                android:drawablePadding="10dp"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <EditText-->
+<!--            android:id="@+id/input_pass"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:background="#F5F5F5"-->
+<!--            android:drawableStart="@drawable/baseline_tag_faces_24"-->
+<!--            android:drawablePadding="10dp"-->
+<!--            android:hint="Insira a senha"-->
+<!--            android:paddingStart="15dp"-->
+<!--            android:paddingEnd="15dp"-->
+<!--            android:textColorHint="#999999"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:layout_marginBottom="32dp"/>-->
 
         <Button
             android:id="@+id/btn_Alogin"
-            android:layout_width="match_parent"
+            android:layout_width="330dp"
             android:layout_height="54dp"
             android:text="Login"
             android:textColor="#FFFFFF"

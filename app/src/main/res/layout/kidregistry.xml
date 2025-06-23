@@ -34,20 +34,40 @@
             android:textStyle="bold"
             android:labelFor="@+id/input_email" />
 
-        <EditText
-            android:id="@+id/input_email"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="12dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/baseline_tag_faces_24"
-            android:drawablePadding="10dp"
-            android:hint="Nome da criança"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
+            android:layout_height="wrap_content"
+            android:hint="Insira o nome da criança"
             android:textColorHint="#999999"
-            android:inputType="textPersonName" />
+            app:boxStrokeColor="#52AE77"
+            app:placeholderText="Insira o nome da criança"
+            app:placeholderTextColor="#999999"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:drawableStart="@drawable/baseline_tag_faces_24"
+                android:drawablePadding="10dp"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <EditText-->
+<!--            android:id="@+id/input_email"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginBottom="12dp"-->
+<!--            android:background="#F5F5F5"-->
+<!--            android:drawableStart="@drawable/baseline_tag_faces_24"-->
+<!--            android:drawablePadding="10dp"-->
+<!--            android:hint="Nome da criança"-->
+<!--            android:paddingStart="15dp"-->
+<!--            android:paddingEnd="15dp"-->
+<!--            android:textColorHint="#999999"-->
+<!--            android:inputType="textPersonName" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,22 +77,42 @@
             android:textStyle="bold"
             android:labelFor="@+id/input_psnome" />
 
-        <EditText
-            android:id="@+id/input_psnome"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="12dp"
-            android:background="#F5F5F5"
-            android:drawableStart="@drawable/baseline_tag_faces_24"
-            android:drawablePadding="10dp"
+            android:layout_height="wrap_content"
             android:hint="dd/mm/aaaa"
-            android:inputType="date"
-            android:focusable="false"
-            android:clickable="true"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:textColorHint="#999999" />
+            android:textColorHint="#999999"
+            app:boxStrokeColor="#52AE77"
+            app:placeholderText="dd/mm/aaaa"
+            app:placeholderTextColor="#999999"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_psnome"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:drawableStart="@drawable/baseline_tag_faces_24"
+                android:drawablePadding="10dp"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <EditText-->
+<!--            android:id="@+id/input_psnome"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginBottom="12dp"-->
+<!--            android:background="#F5F5F5"-->
+<!--            android:drawableStart="@drawable/baseline_tag_faces_24"-->
+<!--            android:drawablePadding="10dp"-->
+<!--            android:hint="dd/mm/aaaa"-->
+<!--            android:inputType="date"-->
+<!--            android:focusable="false"-->
+<!--            android:clickable="true"-->
+<!--            android:paddingStart="15dp"-->
+<!--            android:paddingEnd="15dp"-->
+<!--            android:textColorHint="#999999" />-->
 
         <TextView
             android:layout_width="wrap_content"
