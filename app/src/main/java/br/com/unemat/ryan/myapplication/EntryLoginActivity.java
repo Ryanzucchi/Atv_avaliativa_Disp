@@ -15,40 +15,34 @@ import androidx.core.content.ContextCompat; // Import for ContextCompat
 
 public class EntryLoginActivity extends AppCompatActivity {
 
-    // Declare UI elements
-    private EditText inputEmailOrCpf;
+    private EditText inputCpf;
     private EditText inputPassword;
-    private Button btnLogin; // Renamed for clarity
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entrylogin);
 
-        // Initialize UI elements
-        inputEmailOrCpf = findViewById(R.id.input_email);
-        inputPassword = findViewById(R.id.input_pasSs); // Corrected ID to match XML: input_pasSs
+        inputCpf = findViewById(R.id.input_cpf);
+        inputPassword = findViewById(R.id.input_pasSs);
         btnLogin = findViewById(R.id.btn_Elogin);
         TextView btnLinkReg = findViewById(R.id.link_Eregister);
 
-        // Set initial state of the login button
         checkFormCompletion();
 
-        // Add TextWatchers to the EditText fields
-        inputEmailOrCpf.addTextChangedListener(formTextWatcher);
+        inputCpf.addTextChangedListener(formTextWatcher);
         inputPassword.addTextChangedListener(formTextWatcher);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isFormValid()) {
-                    // If the form is valid, proceed to ActivityMain
                     Intent intent = new Intent(EntryLoginActivity.this, ActivityMain.class);
                     startActivity(intent);
-                    finish(); // Optionally finish this activity
+                    finish();
                 } else {
-                    // If the form is not valid, show a toast message
-                    Toast.makeText(EntryLoginActivity.this, "Por favor, insira seu CPF/email e senha.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EntryLoginActivity.this, "Por favor, insira seu CPF e senha.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -69,18 +63,17 @@ public class EntryLoginActivity extends AppCompatActivity {
     private TextWatcher formTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // Not needed for this implementation
+            //
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Called when text changes, re-check form completion
             checkFormCompletion();
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-            // Not needed for this implementation
+            //
         }
     };
 
@@ -89,15 +82,13 @@ public class EntryLoginActivity extends AppCompatActivity {
      * Updates the "Login" button's enabled state and color.
      */
     private void checkFormCompletion() {
-        boolean isEmailOrCpfFilled = !inputEmailOrCpf.getText().toString().trim().isEmpty();
+        boolean isCpfFilled = inputCpf.getText().toString().trim().replaceAll("[^\\d]", "").length() == 11;
         boolean isPasswordFilled = !inputPassword.getText().toString().trim().isEmpty();
 
-        boolean isFormComplete = isEmailOrCpfFilled && isPasswordFilled;
+        boolean isFormComplete = isCpfFilled && isPasswordFilled;
 
-        // Set button enabled state
         btnLogin.setEnabled(isFormComplete);
 
-        // Change button color based on completion
         if (isFormComplete) {
             btnLogin.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary)); // Green color
         } else {
@@ -110,8 +101,7 @@ public class EntryLoginActivity extends AppCompatActivity {
      * @return true if both email/CPF and password fields are filled, false otherwise.
      */
     private boolean isFormValid() {
-        // We can simply check the enabled state of the button,
-        // which reflects the result of checkFormCompletion().
+
         return btnLogin.isEnabled();
     }
 }
