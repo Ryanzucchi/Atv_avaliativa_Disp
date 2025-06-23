@@ -31,8 +31,6 @@
             app:hintTextColor="#52AE77"
             android:textColorHint="#999999"
             app:boxStrokeColor="#52AE77"
-            android:drawableStart="@drawable/baseline_tag_faces_24"
-            android:drawablePadding="10dp"
             app:placeholderText="Digite seu CPF"
             app:placeholderTextColor="#999999"
             android:paddingStart="15dp"
@@ -43,6 +41,9 @@
                 android:id="@+id/input_cpf"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
+                android:drawableStart="@drawable/baseline_tag_faces_24"
+                android:drawablePadding="10dp"
+                android:maxLength="11"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,8 +55,6 @@
             app:hintTextColor="#52AE77"
             android:textColorHint="#999999"
             app:boxStrokeColor="#52AE77"
-            android:drawableStart="@drawable/baseline_tag_faces_24"
-            android:drawablePadding="10dp"
             app:placeholderText="Digite sua senha"
             app:placeholderTextColor="#999999"
             android:paddingStart="15dp"
@@ -66,6 +65,8 @@
                 android:id="@+id/input_pasSs"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
+                android:drawableStart="@drawable/ic_lock_24"
+                android:drawablePadding="10dp"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
